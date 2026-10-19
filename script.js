@@ -1,5 +1,6 @@
-// Ссылка на вашу таблицу в Stein (замените ВАШ_УНИКАЛЬНЫЙ_ID на свой)
-const API_URL = "https://stein.ef.r.appspot.com/api/v1/storage/ВАШ_УНИКАЛЬНЫЙ_ID/Sheet1";
+// Посты лежат в файле posts.json в этом же репозитории.
+// Новые записи добавляйте В НАЧАЛО списка — они покажутся первыми.
+const POSTS_URL = "posts.json";
 
 const container = document.getElementById("revision-container");
 
@@ -11,7 +12,7 @@ function showMessage(text, className = "") {
     container.append(p);
 }
 
-function createCard({ date, title, description }) {
+function createCard({ date, title, description, image }) {
     const article = document.createElement("article");
     article.className = "update";
 
@@ -25,28 +26,36 @@ function createCard({ date, title, description }) {
     p.textContent = description ?? "";
 
     article.append(time, h3, p);
+
+    if (image) {
+        const img = document.createElement("img");
+        img.src = image;
+        img.alt = title ?? "";
+        img.loading = "lazy";
+        article.append(img);
+    }
+
     return article;
 }
 
-async function loadUpdates() {
+async function loadPosts() {
     try {
-        const response = await fetch(API_URL);
+        const response = await fetch(POSTS_URL, { cache: "no-cache" });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
-        const data = await response.json();
+        const posts = await response.json();
 
-        if (!data.length) {
+        if (!posts.length) {
             showMessage("Доработок пока нет, но они скоро появятся!");
             return;
         }
 
-        // Новые записи (снизу таблицы) показываем сверху
         container.innerHTML = "";
-        container.append(...data.reverse().map(createCard));
+        container.append(...posts.map(createCard));
     } catch (error) {
-        console.error("Ошибка загрузки данных:", error);
-        showMessage("Не удалось загрузить свежие доработки. Попробуйте позже.", "error");
+        console.error("Ошибка загрузки постов:", error);
+        showMessage("Не удалось загрузить доработки. Проверьте файл posts.json.", "error");
     }
 }
 
-loadUpdates();
+loadPosts();
