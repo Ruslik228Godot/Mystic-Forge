@@ -1,0 +1,141 @@
+:root {
+    --bg: #eef1ee;
+    --card: #ffffff;
+    --ink: #17231c;
+    --muted: #5b6b61;
+    --green: #008337;
+    --green-dark: #0b3d24;
+    --amber: #e0a030;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: "Manrope", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.65;
+}
+
+a { color: var(--green); }
+
+:focus-visible {
+    outline: 3px solid var(--amber);
+    outline-offset: 3px;
+}
+
+/* Шапка */
+.hero {
+    background: var(--green-dark);
+    color: #fff;
+    padding: 28px 20px 80px;
+}
+
+.hero h1 {
+    max-width: 900px;
+    margin: 56px auto 0;
+    font-family: "Unbounded", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: clamp(30px, 6vw, 52px);
+    line-height: 1.15;
+}
+
+.links {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 8px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 50px;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.links a:hover {
+    background: var(--green);
+    border-color: var(--green);
+}
+
+/* Контент */
+.container {
+    max-width: 900px;
+    width: 92%;
+    margin: -48px auto 60px;
+}
+
+.card {
+    background: var(--card);
+    padding: 28px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 18px rgba(11, 61, 36, 0.08);
+}
+
+.card h2 {
+    margin: 0 0 12px;
+    font-family: "Unbounded", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 22px;
+    color: var(--green);
+}
+
+.card p {
+    margin: 0 0 12px;
+    font-size: 18px;
+    max-width: 65ch;
+}
+
+.card p:last-child { margin-bottom: 0; }
+
+/* Лента доработок */
+.timeline .update {
+    position: relative;
+    padding: 0 0 24px 24px;
+    border-left: 2px solid #d5ddd7;
+}
+
+.timeline .update:last-child { padding-bottom: 0; }
+
+.timeline .update::before {
+    content: "";
+    position: absolute;
+    left: -7px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--amber);
+}
+
+.update time {
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.update h3 {
+    margin: 2px 0 4px;
+    font-size: 20px;
+}
+
+.update p {
+    font-size: 16px;
+    color: var(--muted);
+}
+
+.timeline .error { color: #b3261e; }
+
+@media (max-width: 600px) {
+    .links { justify-content: center; }
+    .hero h1 { margin-top: 36px; text-align: center; }
+    .card { padding: 20px; }
+}
